@@ -12782,9 +12782,9 @@ RCxxGGOMiYglDmOMMRGxxGGMMSYi/x/cpdAE6GyzzQAAAABJRU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ul>
-<li>Sample 0: A big market or retailer, with large amount of every product category.</li>
-<li>Sample 1: A retailer that works mainly with milk, grocery, detergents and papper products. </li>
-<li>Sample 2: A small grocery shop.</li>
+<li>Sample 0 (index 47): A big retailer, with large amount of every product category, as we can see with all expenses been above 90% percentile. </li>
+<li>Sample 1 (index 65): A retailer that works mainly with milk, grocery, detergents and papper products. We can see by the high percentiles on these products expenses and low in the others. </li>
+<li>Sample 2 (index 117): A cafe/resturant, because of median expenseses on Milk, Grocery and Delicatessen.</li>
 </ul>
 
 </div>
@@ -18880,7 +18880,8 @@ Outlier cut [3.76959400251,9.74900908097]
 <span class="n">is_out</span> <span class="o">=</span> <span class="n">is_out</span><span class="p">[</span><span class="n">is_out</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)]</span>
 <span class="n">is_out</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">is_out</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Outlier Table&quot;</span><span class="p">)</span>
-<span class="n">is_out</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">is_out</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">my_outliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">is_out</span><span class="p">[</span><span class="n">is_out</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -18901,10 +18902,10 @@ Outlier cut [3.76959400251,9.74900908097]
 </div>
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[14]:</div>
+<div class="prompt"></div>
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 <div>
 <table border="1" class="dataframe">
   <thead>
@@ -19011,6 +19012,7 @@ Outlier cut [3.76959400251,9.74900908097]
 For example, sample 154 is an outlier for Milk, Grocery and Delicatessen features.</p>
 <p>These data points have very low/hight values with respect to some features, but for others features they
 have tipical values. It's natural that some customers have this characteristic if they work only with a subset of the products categories. For that reason, I've not removed any point as outlier.</p>
+<p>Besides that, as we can see futher, the removal of outliers does not change the selected number of clusters.</p>
 
 </div>
 </div>
@@ -19426,13 +19428,13 @@ SZKkDgOTJEmSJHUYmCRJkiSpw8AkSZIkSR0GJkmSJEnq+F8ZlRp04I/iGwAAAABJRU5ErkJggg==
 <p><strong>Answer:</strong></p>
 <p>The first two principal components explains about 72% of the data variance. The first four principal components explains about 93% of the data variance.</p>
 <ul>
-<li><p>1st dimension: customers who spend significantly below average on Detergent, Milk and Grovery categories have high score. The oposite customers (above average for Detergent, Milk and Grovery) have low score.</p>
+<li><p>1st dimension: it mainly separates customers with below average expenses on Detergent_Paper, Milk and Grocery from those with high (above average) expenses on those products.</p>
 </li>
-<li><p>2nd dimension: customers who spend below average in general (mainly Fresh, Frozen and Delicatessen) have high score (small customers). Customers with above average general spend (big general customers) have low score.</p>
+<li><p>2nd dimension: it mainly separates customers with below average expenses on Fresh, Frozen and Delicatessen from those with high (above average) expenses on those products.</p>
 </li>
-<li><p>3rd dimension: it scores high customers with above average Frozen and Delicatessen spend. It scores low customers with above average Fresh and Detergent_Papers spend.</p>
+<li><p>3rd dimension: it mainly separates customers with simultaneously low expenses on Fresh and high expenses on Delicatessen, from those with the oposite behavior.</p>
 </li>
-<li><p>4th dimension: it scores high customers who have above average spend on Fronzen products (and small spend in Delicatessen), and the opposite for low scores.</p>
+<li><p>4th dimension: it mainly separates customers with simultaneously low expenses on Frozen and high expenses on Delicatessen, from those with the oposite behavior.</p>
 </li>
 </ul>
 
@@ -19555,6 +19557,9 @@ SZKkDgOTJEmSJHUYmCRJkiSpw8AkSZIkSR0GJkmSJEnq+F8ZlRp04I/iGwAAAABJRU5ErkJggg==
 
 <span class="c1"># Create a DataFrame for the reduced data</span>
 <span class="n">reduced_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dimension 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Dimension 2&#39;</span><span class="p">])</span>
+
+<span class="n">reduced_data_rem_outlier</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">good_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">my_outliers</span><span class="p">))</span>
+<span class="n">reduced_data_rem_outlier</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">reduced_data_rem_outlier</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dimension 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Dimension 2&#39;</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -19646,7 +19651,8 @@ SZKkDgOTJEmSJHUYmCRJkiSpw8AkSZIkSR0GJkmSJEnq+F8ZlRp04I/iGwAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">pca</span><span class="o">.</span><span class="n">components_</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Create a biplot</span>
+<span class="n">vs</span><span class="o">.</span><span class="n">biplot</span><span class="p">(</span><span class="n">good_data</span><span class="p">,</span> <span class="n">reduced_data</span><span class="p">,</span> <span class="n">pca</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -19663,42 +19669,7 @@ SZKkDgOTJEmSJHUYmCRJkiSpw8AkSZIkSR0GJkmSJEnq+F8ZlRp04I/iGwAAAABJRU5ErkJggg==
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([[ 0.17371704, -0.394463  , -0.45436364,  0.17219603, -0.74551495,
-        -0.1494356 ],
-       [-0.68513571, -0.16239926, -0.06937908, -0.487691  , -0.04191162,
-        -0.50970874]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Create a biplot</span>
-<span class="n">vs</span><span class="o">.</span><span class="n">biplot</span><span class="p">(</span><span class="n">good_data</span><span class="p">,</span> <span class="n">reduced_data</span><span class="p">,</span> <span class="n">pca</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[20]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f0798007c90&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f6895483750&gt;</pre>
 </div>
 
 </div>
@@ -20861,7 +20832,7 @@ It's a soft cluster method: assign probabilities for customers to belong to clus
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
@@ -20882,7 +20853,7 @@ It's a soft cluster method: assign probabilities for customers to belong to clus
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[21]:</div>
+<div class="prompt output_prompt">Out[20]:</div>
 
 
 
@@ -20898,18 +20869,15 @@ It's a soft cluster method: assign probabilities for customers to belong to clus
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">best_score</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">best_nc</span> <span class="o">=</span> <span class="bp">None</span>
-
-<span class="k">def</span> <span class="nf">try_cluster</span><span class="p">(</span><span class="n">nc</span><span class="p">):</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">try_cluster</span><span class="p">(</span><span class="n">nc</span><span class="p">,</span><span class="n">dataset</span><span class="p">):</span>
     <span class="c1"># TODO: Apply your clustering algorithm of choice to the reduced data </span>
-    <span class="n">clusterer</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">nc</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">)</span>
+    <span class="n">clusterer</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">nc</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 
     <span class="c1"># TODO: Predict the cluster for each data point</span>
-    <span class="n">preds</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 
     <span class="c1"># TODO: Find the cluster centers</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">means_</span>
@@ -20918,19 +20886,25 @@ It's a soft cluster method: assign probabilities for customers to belong to clus
     <span class="n">sample_preds</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pca_samples</span><span class="p">)</span>
 
     <span class="c1"># TODO: Calculate the mean silhouette coefficient for the number of clusters chosen</span>
-    <span class="n">score</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">,</span><span class="n">preds</span><span class="p">)</span>
+    <span class="c1">#score = -clusterer.bic(reduced_data)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">preds</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;mahalanobis&#39;</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">clusterer</span><span class="p">,</span><span class="n">preds</span><span class="p">,</span><span class="n">centers</span><span class="p">,</span><span class="n">sample_preds</span><span class="p">,</span><span class="n">score</span>
-    
-<span class="k">for</span> <span class="n">nc</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">):</span>
-    <span class="n">clusterer</span><span class="p">,</span><span class="n">preds</span><span class="p">,</span><span class="n">centers</span><span class="p">,</span><span class="n">sample_preds</span><span class="p">,</span><span class="n">score</span> <span class="o">=</span> <span class="n">try_cluster</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Score for {} clusters: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nc</span><span class="p">,</span><span class="n">score</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">best_score</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
-        <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
-        <span class="n">best_nc</span> <span class="o">=</span> <span class="n">nc</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Best score is {} with {} components.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">best_score</span><span class="p">,</span><span class="n">best_nc</span><span class="p">))</span>
-<span class="n">clusterer</span><span class="p">,</span><span class="n">preds</span><span class="p">,</span><span class="n">centers</span><span class="p">,</span><span class="n">sample_preds</span><span class="p">,</span><span class="n">score</span> <span class="o">=</span> <span class="n">try_cluster</span><span class="p">(</span><span class="n">best_nc</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">dataset</span><span class="p">,</span><span class="n">dt_name</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">reduced_data_rem_outlier</span><span class="p">,</span><span class="s1">&#39;Reduced data (without outliers)&#39;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">reduced_data</span><span class="p">,</span><span class="s1">&#39;Reduced data&#39;</span><span class="p">)]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Analysis for &#39;{}&#39; dataset&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dt_name</span><span class="p">))</span>
+    <span class="n">best_score</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">best_nc</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">nc</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">):</span>
+        <span class="n">clusterer</span><span class="p">,</span><span class="n">preds</span><span class="p">,</span><span class="n">centers</span><span class="p">,</span><span class="n">sample_preds</span><span class="p">,</span><span class="n">score</span> <span class="o">=</span> <span class="n">try_cluster</span><span class="p">(</span><span class="n">nc</span><span class="p">,</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Score for {} clusters: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nc</span><span class="p">,</span><span class="n">score</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">best_score</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+            <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+            <span class="n">best_nc</span> <span class="o">=</span> <span class="n">nc</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Best score is {} with {} components.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">best_score</span><span class="p">,</span><span class="n">best_nc</span><span class="p">))</span>
+    <span class="n">clusterer</span><span class="p">,</span><span class="n">preds</span><span class="p">,</span><span class="n">centers</span><span class="p">,</span><span class="n">sample_preds</span><span class="p">,</span><span class="n">score</span> <span class="o">=</span> <span class="n">try_cluster</span><span class="p">(</span><span class="n">best_nc</span><span class="p">,</span><span class="n">dataset</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -20945,12 +20919,22 @@ It's a soft cluster method: assign probabilities for customers to belong to clus
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Score for 2 clusters: 0.409968324528
-Score for 3 clusters: 0.401945719377
-Score for 4 clusters: 0.312142034867
-Score for 5 clusters: 0.276392991644
-Score for 6 clusters: 0.300884333928
-Best score is 0.409968324528 with 2 components.
+<pre>Analysis for &#39;Reduced data (without outliers)&#39; dataset
+Score for 2 clusters: 0.375986045466
+Score for 3 clusters: 0.34225460888
+Score for 4 clusters: 0.320085517135
+Score for 5 clusters: 0.296406474549
+Score for 6 clusters: 0.214647218494
+Best score is 0.375986045466 with 2 components.
+
+Analysis for &#39;Reduced data&#39; dataset
+Score for 2 clusters: 0.375397664616
+Score for 3 clusters: 0.371636092331
+Score for 4 clusters: 0.284758249497
+Score for 5 clusters: 0.291089795039
+Score for 6 clusters: 0.308025250406
+Best score is 0.375397664616 with 2 components.
+
 </pre>
 </div>
 </div>
@@ -20975,12 +20959,12 @@ Best score is 0.409968324528 with 2 components.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>Score for 2 clusters: 0.409968324528<br>
-Score for 3 clusters: 0.401945719377<br>
-Score for 4 clusters: 0.312142034867<br>
-Score for 5 clusters: 0.276392991644<br>
-Score for 6 clusters: 0.300884333928<br>
-<strong>Best score is 0.409968324528 with 2 components.</strong></p>
+<p>Score for 2 clusters: 0.375397664616<br>
+Score for 3 clusters: 0.371636092331<br>
+Score for 4 clusters: 0.284758249497<br>
+Score for 5 clusters: 0.291089795039<br>
+Score for 6 clusters: 0.308025250406<br>
+<strong>Best score is 0.375397664616 with 2 components.</strong></p>
 
 </div>
 </div>
@@ -20997,7 +20981,7 @@ Score for 6 clusters: 0.300884333928<br>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Display the results of the clustering from implementation</span>
@@ -21683,7 +21667,7 @@ iIiIiFKHgRAREREREaUOAyEiIiIiIkodBkJERERERJQ6DISIiIiIiCh1GAgREREREVHq/H8YwvYr
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Inverse transform the centers</span>
@@ -21892,7 +21876,7 @@ This may possibly represent <em>smaller establishments</em>, more focused on foo
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Display the predictions</span>
@@ -22073,7 +22057,7 @@ Sample point 2 predicted to be in Cluster 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Display the clustering results based on &#39;Channel&#39; data</span>
