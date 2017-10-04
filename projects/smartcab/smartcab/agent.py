@@ -45,9 +45,9 @@ class LearningAgent(Agent):
             self.epsilon = 0.0
             self.alpha = 0.0
         else:
-            #self.epsilon = max(0.0,self.epsilon - 0.01)
-            self.epsilon = 1 - self.trial_number**3/250.0**3
-            #self.epsilon = self.epsilon - 0.001 if self.trial_number < 200 else max(0, self.epsilon - 0.05)
+            #self.epsilon = max(0.0,self.epsilon - 0.05)
+            self.epsilon = 1 - self.trial_number**5/900.0**5
+            #self.epsilon = self.epsilon if self.trial_number < 800 else max(0, self.epsilon - 0.05)
 
         return None
 
@@ -71,7 +71,7 @@ class LearningAgent(Agent):
         # With the hand-engineered features, this learning process gets entirely negated.
         
         # Set 'state' as a tuple of relevant data for the agent        
-        state = (waypoint,inputs['light'],inputs['oncoming'],inputs['left'])
+        state = (waypoint,inputs['light'],inputs['oncoming'],inputs['left'], inputs['right'])
 
         return state
 
@@ -143,8 +143,9 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-        
-        self.Q[state][action] += self.alpha*(reward -  self.Q[state][action])
+        if self.learning:        
+            self.Q[state][action] += self.alpha*(reward -  self.Q[state][action])
+            
         return
 
 
@@ -166,6 +167,13 @@ def run():
     """ Driving function for running the simulation. 
         Press ESC to close the simulation, or [SPACE] to pause the simulation. """
 
+    learning = True
+    enforce_deadline = True
+    n_test = 50
+    learning = True
+    optimezed = True#False
+    alpha = 0.1
+    
     ##############
     # Create the environment
     # Flags:
@@ -180,13 +188,13 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent, learning = False, alpha = 0.5)
+    agent = env.create_agent(LearningAgent, learning = learning, alpha = alpha)
     
     ##############
     # Follow the driving agent
     # Flags:
     #   enforce_deadline - set to True to enforce a deadline metric
-    env.set_primary_agent(agent,enforce_deadline=True)
+    env.set_primary_agent(agent,enforce_deadline=enforce_deadline)
 
     ##############
     # Create the simulation
@@ -195,14 +203,14 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env,update_delay=0.01,log_metrics=True, display=False, optimized=False)
+    sim = Simulator(env,update_delay=0.001,log_metrics=True, display=False, optimized=optimezed)
     
     ##############
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=10)
+    sim.run(n_test=n_test)
 
 
 if __name__ == '__main__':
